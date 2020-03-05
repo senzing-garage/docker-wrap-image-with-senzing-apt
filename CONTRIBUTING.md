@@ -83,7 +83,7 @@ The variables are used throughout the installation procedure.
 
 ```console
 export GIT_ACCOUNT=senzing
-export GIT_REPOSITORY=template-repository
+export GIT_REPOSITORY=docker-wrap-image-with-senzing-apt
 ```
 
 Synthesize environment variables.
