@@ -1,7 +1,7 @@
 ARG BASE_IMAGE=senzing/senzing-base:1.5.2
 FROM ${BASE_IMAGE}
 
-ENV REFRESHED_AT=2020-03-05
+ENV REFRESHED_AT=2021-05-01
 
 # SENZING_ACCEPT_EULA to be replaced by --build-arg
 
