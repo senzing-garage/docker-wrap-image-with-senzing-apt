@@ -39,7 +39,7 @@ RUN apt -y install senzingapi \
 
 # Initialize files.
 
-COPY --from=senzing/init-container:1.6.9  "/app/init-container.py" "/app/init-container.py"
+COPY --from=senzing/init-container:latest "/app/init-container.py" "/app/init-container.py"
 RUN /app/init-container.py initialize-files
 
 # Finally, make the container a non-root container again.
