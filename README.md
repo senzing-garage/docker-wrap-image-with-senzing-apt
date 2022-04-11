@@ -42,5 +42,5 @@ To use the Senzing code, you must agree to the End User License Agreement (EULA)
         --build-arg BASE_IMAGE=${BASE_IMAGE} \
         --build-arg SENZING_ACCEPT_EULA=${SENZING_ACCEPT_EULA} \
         --tag ${NEW_IMAGE} \
-        https://github.com/Senzing/docker-wrap-image-with-senzing-apt.git
+        https://github.com/Senzing/docker-wrap-image-with-senzing-apt.git#main
     ```
