@@ -22,14 +22,14 @@ To use the Senzing code, you must agree to the End User License Agreement (EULA)
    Example:
 
     ```console
-    export BASE_IMAGE="senzing/senzing-api-server:2.0.0"
+    export BASE_IMAGE="senzing/senzing-api-server:3.0.0"
     ```
 
 1. :pencil2: Name the new image that will be produced.
    Example:
 
     ```console
-    export NEW_IMAGE="mycompany/senzing-api-server:2.0.0"
+    export NEW_IMAGE="mycompany/senzing-api-server:3.0.0"
     ```
 
 ## Build Docker image
