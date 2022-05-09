@@ -37,7 +37,6 @@ RUN curl \
 RUN apt -y install senzingapi \
  && mv /opt/senzing/data/3.0.0/* /opt/senzing/data/
 
-
 # Initialize files.
 
 COPY --from=senzing/init-container:latest "/app/init-container.py" "/app/init-container.py"
