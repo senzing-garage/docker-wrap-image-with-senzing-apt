@@ -3,7 +3,7 @@
 ## Overview
 
 This repository shows how to
-[baked-in](https://github.com/Senzing/knowledge-base/blob/master/WHATIS/baked-in.md)
+[baked-in](https://github.com/Senzing/knowledge-base/blob/main/WHATIS/baked-in.md)
 a Senzing installation into a Debian/Ubuntu based docker image.
 
 ## EULA
@@ -14,7 +14,7 @@ To use the Senzing code, you must agree to the End User License Agreement (EULA)
    This ensures that you make a conscious effort to accept the EULA.
    Example:
 
-    <code>export SENZING_ACCEPT_EULA="&lt;the value from [this link](https://github.com/Senzing/knowledge-base/blob/master/lists/environment-variables.md#senzing_accept_eula)&gt;"</code>
+    <code>export SENZING_ACCEPT_EULA="&lt;the value from [this link](https://github.com/Senzing/knowledge-base/blob/main/lists/environment-variables.md#senzing_accept_eula)&gt;"</code>
 
 ## Environment variables
 
