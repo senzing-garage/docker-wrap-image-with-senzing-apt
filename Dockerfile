@@ -35,7 +35,7 @@ RUN curl \
 #   Note: The system location for "data" should be /opt/senzing/data, hence the "mv" command.
 
 RUN apt -y install senzingapi \
- && mv /opt/senzing/data/3.0.0/* /opt/senzing/data/
+ && mv /opt/senzing/data/4.0.1/* /opt/senzing/data/
 
 # Initialize files.
 
