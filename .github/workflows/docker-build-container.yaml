@@ -13,6 +13,7 @@ jobs:
       - name: Build docker image
         uses: Senzing/github-action-docker-buildx-build@latest
         with:
+          build-options: --build-arg SENZING_ACCEPT_EULA=I_ACCEPT_THE_SENZING_EULA
           image-repository: senzing/wrap-image-with-senzing-apt
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
           username: ${{ secrets.DOCKERHUB_USERNAME }}
