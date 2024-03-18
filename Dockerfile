@@ -1,11 +1,14 @@
-ARG BASE_IMAGE=senzing/senzing-base:1.6.22
+ARG BASE_IMAGE=senzing/senzing-base:1.6.23
 FROM ${BASE_IMAGE}
 
-ENV REFRESHED_AT=2023-11-14
+ENV REFRESHED_AT=2024-03-18
 
 # SENZING_ACCEPT_EULA to be replaced by --build-arg
 
 ARG SENZING_ACCEPT_EULA=no
+ARG SENZING_APT_INSTALL_PACKAGE="senzingapi"
+ARG SENZING_APT_REPOSITORY_URL="https://senzing-production-apt.s3.amazonaws.com/senzingrepo_1.0.1-1_all.deb"
+ARG SENZING_DATA_VERSION=4.0
 
 # Need to be root to do "apt" operations.
 
@@ -24,18 +27,18 @@ RUN apt update \
 # Install Senzing repository index.
 
 RUN curl \
-      --output /senzingrepo_1.0.1-1_amd64.deb \
-      https://senzing-production-apt.s3.amazonaws.com/senzingrepo_1.0.1-1_amd64.deb \
+      --output /senzingrepo_1.0.1-1_all.deb \
+      ${SENZING_APT_REPOSITORY_URL} \
  && apt -y install \
-      /senzingrepo_1.0.1-1_amd64.deb \
+      /senzingrepo_1.0.1-1_all.deb \
  && apt update \
- && rm /senzingrepo_1.0.1-1_amd64.deb
+ && rm /senzingrepo_1.0.1-1_all.deb
 
 # Install Senzing package.
 #   Note: The system location for "data" should be /opt/senzing/data, hence the "mv" command.
 
-RUN apt -y install senzingapi \
- && mv /opt/senzing/data/4.0.1/* /opt/senzing/data/
+RUN apt -y install ${SENZING_APT_INSTALL_PACKAGE} \
+ && mv /opt/senzing/data/${SENZING_DATA_VERSION}/* /opt/senzing/data/
 
 # Initialize files.
 
