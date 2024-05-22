@@ -8,7 +8,7 @@ ENV REFRESHED_AT=2024-05-22
 ARG SENZING_ACCEPT_EULA=no
 ARG SENZING_APT_INSTALL_PACKAGE="senzingapi"
 ARG SENZING_APT_REPOSITORY_URL="https://senzing-production-apt.s3.amazonaws.com/senzingrepo_1.0.1-1_all.deb"
-ARG SENZING_DATA_VERSION=4.0
+ARG SENZING_DATA_VERSION=5.0.0
 
 # Need to be root to do "apt" operations.
 
