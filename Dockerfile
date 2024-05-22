@@ -7,7 +7,7 @@ ENV REFRESHED_AT=2024-05-22
 
 ARG SENZING_ACCEPT_EULA=no
 ARG SENZING_APT_INSTALL_PACKAGE="senzingapi"
-ARG SENZING_APT_REPOSITORY_URL="https://senzing-production-apt.s3.amazonaws.com/senzingrepo_1.0.1-1_all.deb"
+ARG SENZING_APT_REPOSITORY_URL="https://senzing-production-apt.s3.amazonaws.com/senzingrepo_2.0.0-1_all.deb"
 ARG SENZING_DATA_VERSION=5.0.0
 
 # Need to be root to do "apt" operations.
@@ -17,28 +17,28 @@ USER root
 # Install packages via apt.
 
 RUN apt update \
- && apt -y install \
-      apt-transport-https \
-      curl \
-      gnupg \
-      sudo \
-      wget
+  && apt -y install \
+  apt-transport-https \
+  curl \
+  gnupg \
+  sudo \
+  wget
 
 # Install Senzing repository index.
 
 RUN curl \
-      --output /senzingrepo_1.0.1-1_all.deb \
-      ${SENZING_APT_REPOSITORY_URL} \
- && apt -y install \
-      /senzingrepo_1.0.1-1_all.deb \
- && apt update \
- && rm /senzingrepo_1.0.1-1_all.deb
+  --output /senzingrepo_2.0.0-1_all.deb \
+  ${SENZING_APT_REPOSITORY_URL} \
+  && apt -y install \
+  /senzingrepo_2.0.0-1_all.deb \
+  && apt update \
+  && rm /senzingrepo_2.0.0-1_all.deb
 
 # Install Senzing package.
 #   Note: The system location for "data" should be /opt/senzing/data, hence the "mv" command.
 
 RUN apt -y install ${SENZING_APT_INSTALL_PACKAGE} \
- && mv /opt/senzing/data/${SENZING_DATA_VERSION}/* /opt/senzing/data/
+  && mv /opt/senzing/data/${SENZING_DATA_VERSION}/* /opt/senzing/data/
 
 # Initialize files.
 
