@@ -12,7 +12,7 @@ ARG SENZING_DATA_VERSION=5.0.0
 
 # Need to be root to do "apt" operations.
 
-# USER root
+USER root
 
 # Install packages via apt-get.
 
