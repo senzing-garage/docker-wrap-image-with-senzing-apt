@@ -21,7 +21,6 @@ RUN apt-get update \
   apt-transport-https \
   curl \
   gnupg \
-  sudo \
   wget
 
 # Install Senzing repository index.
@@ -39,6 +38,8 @@ RUN curl \
 
 RUN apt-get -y install ${SENZING_APT_INSTALL_PACKAGE} \
   && mv /opt/senzing/data/${SENZING_DATA_VERSION}/* /opt/senzing/data/
+
+HEALTHCHECK CMD apt list --installed | grep ${SENZING_APT_INSTALL_PACKAGE}
 
 # Initialize files.
 
