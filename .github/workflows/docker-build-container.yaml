@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: build docker image
-        uses: senzing-factory/github-action-docker-buildx-build@v1
+        uses: senzing-factory/github-action-docker-buildx-build@v2
         with:
           build-options: --build-arg SENZING_ACCEPT_EULA=I_ACCEPT_THE_SENZING_EULA
           image-repository: senzing/wrap-image-with-senzing-apt
