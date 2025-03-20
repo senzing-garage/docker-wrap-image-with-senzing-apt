@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=debian:11.11-slim
+ARG BASE_IMAGE=senzing/senzing-base:1.6.25
 FROM ${BASE_IMAGE}
 
 ENV REFRESHED_AT=2024-06-24
@@ -28,17 +28,7 @@ RUN apt-get update \
   apt-transport-https \
   curl \
   gnupg \
-  python3 \
-  python3-dev \
-  python3-pip \
-  python3-venv \
-  wget \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
-
-# Create and activate virtual environment.
-RUN python3 -m venv /app/venv
-ENV PATH="/app/venv/bin:$PATH"
+  wget 
 
 # Install Senzing repository index.
 
