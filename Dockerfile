@@ -40,8 +40,7 @@ RUN curl \
  && apt-get update \
  && rm /${SENZING_APT_REPOSITORY_NAME}
 
-# Install Senzing package.
-#   Note: The system location for "data" should be /opt/senzing/data, hence the "mv" command.
+RUN env
 
 RUN apt-get -y install ${SENZING_APT_INSTALL_PACKAGE} 
 
