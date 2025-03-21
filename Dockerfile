@@ -44,11 +44,6 @@ RUN apt-get -y install ${SENZING_APT_INSTALL_PACKAGE}
 
 HEALTHCHECK CMD apt list --installed | grep ${SENZING_APT_INSTALL_PACKAGE}
 
-# Initialize files.
-
-COPY --from=senzing/init-container:latest "/app/init-container.py" "/app/init-container.py"
-RUN /app/init-container.py initialize-files
-
 # Finally, make the container a non-root container again.
 
 USER 1001
