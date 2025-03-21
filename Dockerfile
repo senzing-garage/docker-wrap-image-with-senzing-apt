@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=senzing/senzingapi-runtime:3.12.6
+ARG BASE_IMAGE=debian:11.11-slim
 FROM ${BASE_IMAGE}
 
 ENV REFRESHED_AT=2024-06-24
@@ -13,9 +13,9 @@ ARG SENZING_APT_REPOSITORY_URL="https://senzing-production-apt.s3.amazonaws.com"
 ENV REFRESHED_AT=2025-03-18
 
 ENV SENZING_ACCEPT_EULA=${SENZING_ACCEPT_EULA} \
-  SENZING_APT_INSTALL_PACKAGE=${SENZING_APT_INSTALL_PACKAGE} \
-  SENZING_APT_REPOSITORY_NAME=${SENZING_APT_REPOSITORY_NAME} \
-  SENZING_APT_REPOSITORY_URL=${SENZING_APT_REPOSITORY_URL}
+    SENZING_APT_INSTALL_PACKAGE=${SENZING_APT_INSTALL_PACKAGE} \
+    SENZING_APT_REPOSITORY_NAME=${SENZING_APT_REPOSITORY_NAME} \
+    SENZING_APT_REPOSITORY_URL=${SENZING_APT_REPOSITORY_URL}
 
 # Need to be root to do "apt" operations.
 
@@ -24,22 +24,23 @@ USER root
 # Install packages via apt-get.
 
 RUN apt-get update \
-  && apt-get -y install \
-  apt-transport-https \
-  curl \
-  gnupg \
-  wget 
+ && apt-get -y install \
+    apt-transport-https \
+      curl \
+      gnupg \
+      wget
 
 # Install Senzing repository index.
 
 RUN curl \
-  --output /${SENZING_APT_REPOSITORY_NAME} \
-  ${SENZING_APT_REPOSITORY_URL}/${SENZING_APT_REPOSITORY_NAME} \
-  && apt-get -y install \
-  /${SENZING_APT_REPOSITORY_NAME} \
-  && apt-get update \
-  && rm /${SENZING_APT_REPOSITORY_NAME}
+      --output /${SENZING_APT_REPOSITORY_NAME} \
+       ${SENZING_APT_REPOSITORY_URL}/${SENZING_APT_REPOSITORY_NAME} \
+ && apt-get -y install \
+      /${SENZING_APT_REPOSITORY_NAME} \
+ && apt-get update \
+ && rm /${SENZING_APT_REPOSITORY_NAME}
 
+RUN env
 
 RUN apt-get -y install ${SENZING_APT_INSTALL_PACKAGE} 
 
