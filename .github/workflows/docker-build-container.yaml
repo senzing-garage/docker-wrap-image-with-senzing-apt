@@ -14,11 +14,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: build docker image
-        uses: senzing-factory/github-action-docker-buildx-build@v1
+      - name: Get repository name
+        id: repo-basename
+        run: |
+          echo "repo=$(basename ${{ github.repository }})" >> "$GITHUB_OUTPUT"
+        shell: bash
+
+      - name: Build docker image
+        uses: senzing-factory/github-action-docker-buildx-build@v2
         with:
           build-options: --build-arg SENZING_ACCEPT_EULA=I_ACCEPT_THE_SENZING_EULA
-          image-repository: senzing/wrap-image-with-senzing-apt
+          image-repository: senzing/${{ steps.repo-basename.outputs.repo }}
           password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
-          platforms: linux/amd64
           username: ${{ secrets.DOCKERHUB_USERNAME }}

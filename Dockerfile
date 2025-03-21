@@ -1,14 +1,19 @@
-ARG BASE_IMAGE=senzing/senzing-base:1.6.25
+ARG BASE_IMAGE=debian:11.11-slim
 FROM ${BASE_IMAGE}
 
-ENV REFRESHED_AT=2024-06-24
+ENV REFRESHED_AT=2025-03-21
 
 # SENZING_ACCEPT_EULA to be replaced by --build-arg
 
-ARG SENZING_ACCEPT_EULA=no
-ARG SENZING_APT_INSTALL_PACKAGE="senzingapi"
-ARG SENZING_APT_REPOSITORY_URL="https://senzing-production-apt.s3.amazonaws.com/senzingrepo_2.0.0-1_all.deb"
-ARG SENZING_DATA_VERSION=5.0.0
+ARG SENZING_ACCEPT_EULA="I_ACCEPT_THE_SENZING_EULA"
+ARG SENZING_APT_INSTALL_PACKAGE="senzingapi-runtime=3.12.6-25072"
+ARG SENZING_APT_REPOSITORY_NAME="senzingrepo_2.0.0-1_all.deb"
+ARG SENZING_APT_REPOSITORY_URL="https://senzing-production-apt.s3.amazonaws.com"
+
+ENV SENZING_ACCEPT_EULA=${SENZING_ACCEPT_EULA} \
+    SENZING_APT_INSTALL_PACKAGE=${SENZING_APT_INSTALL_PACKAGE} \
+    SENZING_APT_REPOSITORY_NAME=${SENZING_APT_REPOSITORY_NAME} \
+    SENZING_APT_REPOSITORY_URL=${SENZING_APT_REPOSITORY_URL}
 
 # Need to be root to do "apt" operations.
 
@@ -17,34 +22,27 @@ USER root
 # Install packages via apt-get.
 
 RUN apt-get update \
-  && apt-get -y install \
-  apt-transport-https \
-  curl \
-  gnupg \
-  wget
+ && apt-get -y install \
+    apt-transport-https \
+      curl \
+      gnupg \
+      wget
 
 # Install Senzing repository index.
 
 RUN curl \
-  --output /senzingrepo_2.0.0-1_all.deb \
-  ${SENZING_APT_REPOSITORY_URL} \
-  && apt-get -y install \
-  /senzingrepo_2.0.0-1_all.deb \
-  && apt-get update \
-  && rm /senzingrepo_2.0.0-1_all.deb
+      --output /${SENZING_APT_REPOSITORY_NAME} \
+       ${SENZING_APT_REPOSITORY_URL}/${SENZING_APT_REPOSITORY_NAME} \
+ && apt-get -y install \
+      /${SENZING_APT_REPOSITORY_NAME} \
+ && apt-get update \
+ && rm /${SENZING_APT_REPOSITORY_NAME}
 
-# Install Senzing package.
-#   Note: The system location for "data" should be /opt/senzing/data, hence the "mv" command.
+RUN env
 
-RUN apt-get -y install ${SENZING_APT_INSTALL_PACKAGE} \
-  && mv /opt/senzing/data/${SENZING_DATA_VERSION}/* /opt/senzing/data/
+RUN apt-get -y install ${SENZING_APT_INSTALL_PACKAGE} 
 
 HEALTHCHECK CMD apt list --installed | grep ${SENZING_APT_INSTALL_PACKAGE}
-
-# Initialize files.
-
-COPY --from=senzing/init-container:latest "/app/init-container.py" "/app/init-container.py"
-RUN /app/init-container.py initialize-files
 
 # Finally, make the container a non-root container again.
 
