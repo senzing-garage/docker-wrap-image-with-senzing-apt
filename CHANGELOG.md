@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed in 1.1.4
 
-- In `Dockerfile`, updated 
+- In `Dockerfile`, updated
   - FROM instruction to `senzing/senzing-base:1.6.24`
   - `senzingrepo_2.0.0-1_all.deb`
 
@@ -60,7 +60,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed in 1.0.4
 
-- Copying init-container.py from senzing/init-container:1.6.9 (the currente release)
+- Copying init-container.py from senzing/init-container:1.6.9 (the current release)
 
 ## [1.0.3] - 2020-07-23
 
